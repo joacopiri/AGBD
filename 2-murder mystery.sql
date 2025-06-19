@@ -11,4 +11,7 @@ select * from interview i join get_fit_now_member g on i.person_id = g.person_id
 select * from drivers_license d join person p on p.license_id = d.id  where p.license_id like 423327 and d.plate_number like "%H42W%"
 INSERT INTO solution VALUES (1, 'Jeremy Bowers'); SELECT value FROM solution;
 
-Congrats, you found the murderer! But wait, there's more... If you think you're up for a challenge, try querying the interview transcript of the murderer to find the real villain behind this crime. If you feel especially confident in your SQL skills, try to complete this final step with no more than 2 queries. Use this same INSERT statement with your new suspect to check your answer.
+Congrats, you found the murderer! But wait, there's more... If you think you're up for a challenge, 
+try querying the interview transcript of the murderer to find the real villain behind this crime. 
+If you feel especially confident in your SQL skills, try to complete this final step with no more than 2 queries. 
+Use this same INSERT statement with your new suspect to check your answer.
