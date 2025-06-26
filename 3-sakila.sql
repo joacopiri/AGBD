@@ -19,7 +19,44 @@ INNER JOIN address a on s.address_id = a.address_id
 INNER JOIN city c on a.city_id = c.city_id
 INNER JOIN country co on c.country_id = co.country_id
 /*4)-----------------------------------------------------*/
+SELECT f.title, r.rental_date, r.return_date FROM film f
+INNER JOIN inventory i on f.film_id = i.film_id
+INNER JOIN rental r on i.inventory_id = r.inventory_id
+LIMIT 1
 /*5)-----------------------------------------------------*/
+SELECT * FROM film f
+----------------------------------------------------------
+INNER JOIN film_category fc on f.film_id = fc.film_id 
+INNER JOIN category c on fc.category_id = c.category_id
+
+INNER JOIN language l on f.last_update = l.last_update
+
+INNER JOIN film_actor fa on f.film_id = fa.film_id
+INNER JOIN actor a on fa.actor_id = a.actor_id
+
+INNER JOIN inventory i on f.film_id = i.film_id
+INNER JOIN film_text ft on i.film_id = ft.film_id
+----------------------------------------------------------
+INNER JOIN rental r on i.inventory_id = r.inventory_id
+INNER JOIN payment p on r.rental_id = p.rental_id
+INNER JOIN staff s on p.staff_id = s.staff_id
+INNER JOIN store on s.store_id = store.store_id
+----------------------------------------------------------
+INNER JOIN customer cu on store.store_id = cu.store_id
+INNER JOIN address ad on cu.address_id = ad.address_id
+INNER JOIN city ci on ad.city_id = ci.city_id
+INNER JOIN country co on ci.country_id = co.country_id
+----------------------------------------------------------
+/*6)-----------------------------------------------------*/
+SELECT count(f.title) as peliculas, f.rating FROM film f
+GROUP BY f.rating
+/*7)-----------------------------------------------------*/
+SELECT count(f.title) as peliculas, c.name FROM film f
+INNER JOIN film_category fc on f.film_id = fc.film_id
+INNER JOIN category c on fc.category_id = c.category_id
+GROUP BY c.name
+/*8)-----------------------------------------------------*/
+
 
 min("nombre de columna")max("tmb")
 asc "asendente" y desc "desendente" (solo usando "order by")
