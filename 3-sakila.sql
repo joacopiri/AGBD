@@ -49,13 +49,50 @@ INNER JOIN country co on ci.country_id = co.country_id
 ----------------------------------------------------------
 /*6)-----------------------------------------------------*/
 SELECT count(f.title) as peliculas, f.rating FROM film f
-GROUP BY f.rating
+GROUP by f.rating
 /*7)-----------------------------------------------------*/
-SELECT count(f.title) as peliculas, c.name FROM film f
+SELECT c.name, count(f.film_id) as peliculas FROM film f
 INNER JOIN film_category fc on f.film_id = fc.film_id
 INNER JOIN category c on fc.category_id = c.category_id
-GROUP BY c.name
+GROUP by c.name ORDER by peliculas DESC
 /*8)-----------------------------------------------------*/
+SELECT a.first_name, a.last_name, count(a.actor_id) as actores FROM film f
+INNER JOIN film_actor fa on f.film_id = fa.film_id
+INNER JOIN actor a on fa.actor_id = a.actor_id
+GROUP by f.film_id ORDER by actores DESC
+/*9)-----------------------------------------------------*/
+SELECT a.address, c.city, co.country, count(i.film_id) as cantidad FROM inventory i
+INNER JOIN store s on i.store_id = s.store_id
+INNER JOIN address a on s.address_id = a.address_id
+INNER JOIN city c on a.city_id = c.city_id
+INNER JOIN country co on c.country_id = co.country_id
+GROUP by s.store_id ORDER by cantidad DESC
+/*10)-----------------------------------------------------*/
+SELECT a.address, c.city, co.country, count(DISTINCT i.film_id) as cantidad FROM inventory i
+INNER JOIN store s on i.store_id = s.store_id
+INNER JOIN address a on s.address_id = a.address_id
+INNER JOIN city c on a.city_id = c.city_id
+INNER JOIN country co on c.country_id = co.country_id
+GROUP by s.store_id ORDER by cantidad DESC
+/*11)-----------------------------------------------------*/
+SELECT c.name, count(f.film_id) as peliculas, avg(rental_duration * rental_rate) as promedio FROM film f
+INNER JOIN film_category fc on f.film_id = fc.film_id
+INNER JOIN category c on fc.category_id = c.category_id
+GROUP by c.name ORDER by peliculas DESC
+/*12)-----------------------------------------------------*/
+SELECT f.title, (f.rental_rate * f.rental_duration) as costo_total,f.rental_duration, f.rental_rate, r.rental_date, r.return_date FROM film f
+INNER JOIN inventory i on f.film_id = i.film_id
+INNER JOIN rental r on i.inventory_id = r.inventory_id
+WHERE f.title like "alabama devil"
+GROUP by f.title
+/*13)-----------------------------------------------------*/
+SELECT f.title, f.length, c.name FROM film f
+INNER JOIN film_category fc on f.film_id = fc.film_id 
+INNER JOIN category c on fc.category_id = c.category_id
+ORDER by length DESC
+/*14)-----------------------------------------------------*/
+
+
 
 
 min("nombre de columna")max("tmb")
