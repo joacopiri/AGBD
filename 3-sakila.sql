@@ -80,7 +80,8 @@ INNER JOIN film_category fc on f.film_id = fc.film_id
 INNER JOIN category c on fc.category_id = c.category_id
 GROUP by c.name ORDER by peliculas DESC
 /*12)-----------------------------------------------------*/
-SELECT f.title, (f.rental_rate * f.rental_duration) as costo_total,f.rental_duration, f.rental_rate, r.rental_date, r.return_date FROM film f
+SELECT f.title, (f.rental_rate * f.rental_duration) 
+as costo_total,f.rental_duration, f.rental_rate, r.rental_date, r.return_date FROM film f
 INNER JOIN inventory i on f.film_id = i.film_id
 INNER JOIN rental r on i.inventory_id = r.inventory_id
 WHERE f.title like "alabama devil"
@@ -91,8 +92,37 @@ INNER JOIN film_category fc on f.film_id = fc.film_id
 INNER JOIN category c on fc.category_id = c.category_id
 ORDER by length DESC
 /*14)-----------------------------------------------------*/
+SELECT f.title, count(fa.actor_id) as cantidad FROM film f
+INNER JOIN film_actor fa on f.film_id = fa.film_id
+WHERE f.title like "w%"
+GROUP by f.title
+HAVING cantidad >= 5 
+ORDER by cantidad ASC
+/*15)-----------------------------------------------------*/
+SELECT sum(p.amount) as pagos, c.first_name, c.last_name FROM payment p
+INNER JOIN customer c on p.customer_id = c.customer_id
+GROUP by c.customer_id ORDER by pagos DESC
+/*16)-----------------------------------------------------*/
+SELECT f.title, f.length, a.first_name, a.last_name FROM film f 
+INNER JOIN film_actor fa on f.film_id = fa.film_id
+INNER JOIN actor a on fa.actor_id = a.actor_id
+WHERE f.length <= 60GROUP by f.title ORDER by length ASC 
+/*17)-----------------------------------------------------*/
+SELECT c.last_name, ci.city, co.country, a.address, r.rental_date, r.return_date, sum(p.amount) as pagos FROM customer c
+INNER JOIN address a on c.address_id = a.address_id
+INNER JOIN city ci on a.city_id = ci.city_id
+INNER JOIN country co on ci.country_id = co.country_id
+INNER JOIN rental r on c.customer_id = r.customer_id
+INNER JOIN payment p on c.customer_id = p.customer_id
+GROUP by c.last_name ORDER by pagos ASC
+/*18)-----------------------------------------------------*/
+INSERT INTO actor(actor_id, first_name, last_name, last_update)
+VALUES(201,"JOQUIN", "PIRILLO","2020-12-23 07:12:29")
+/*19)-----------------------------------------------------*/
 
+/*20)-----------------------------------------------------*/
 
+/*21)-----------------------------------------------------*/
 
 
 min("nombre de columna")max("tmb")
