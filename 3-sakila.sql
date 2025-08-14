@@ -106,7 +106,7 @@ GROUP by c.customer_id ORDER by pagos DESC
 SELECT f.title, f.length, a.first_name, a.last_name FROM film f 
 INNER JOIN film_actor fa on f.film_id = fa.film_id
 INNER JOIN actor a on fa.actor_id = a.actor_id
-WHERE f.length <= 60GROUP by f.title ORDER by length ASC 
+WHERE f.length <= 60 GROUP by f.title ORDER by length ASC 
 /*17)-----------------------------------------------------*/
 SELECT c.last_name, ci.city, co.country, a.address, r.rental_date, r.return_date, sum(p.amount) as pagos FROM customer c
 INNER JOIN address a on c.address_id = a.address_id
@@ -117,14 +117,20 @@ INNER JOIN payment p on c.customer_id = p.customer_id
 GROUP by c.last_name ORDER by pagos ASC
 /*18)-----------------------------------------------------*/
 INSERT INTO actor(actor_id, first_name, last_name, last_update)
-VALUES(201,"JOQUIN", "PIRILLO","2020-12-23 07:12:29")
+VALUES(201,"JOAQUIN", "PIRILLO","2020-12-23 07:12:29")
 /*19)-----------------------------------------------------*/
-
+INSERT INTO actor(actor_id, first_name, last_name, last_update)
+VALUES(202,"FEDE", "VILLACE","2020-12-23 07:12:30"),
+(203,"EDUARDO", "MESTROVICH","2020-12-23 07:12:31")
 /*20)-----------------------------------------------------*/
-
+UPDATE actor
+SET  first_name = "FEDERICO"
+WHERE actor_id = 202
 /*21)-----------------------------------------------------*/
+DELETE FROM actor WHERE actor_id = 202
+----------------------------------------------------------
 
-
+count("nombre de columna")
 min("nombre de columna")max("tmb")
 asc "asendente" y desc "desendente" (solo usando "order by")
 "arranca%" "%entre%" "%termina"
