@@ -3,37 +3,75 @@
 CREATE TABLE "Equipos" (
 	"Nombre"	VARACHAR(25) NOT NULL,
 	"Deporte"	VARACHART(25) NOT NULL,
-	"Jugadores"	INTEGER,
-	"EquipoId"	INTEGER,
+	"Jugadores" INTEGER,
+	"EquipoId" INTEGER,
 	PRIMARY KEY("EquipoId" AUTOINCREMENT)
 );
 
 CREATE TABLE "Jugadores" (
 	"Nombre"	VARACHAR(25) NOT NULL,
 	"Apellido"	VARACHAR(25) NOT NULL,
-	"EquipoId"	INTEGER NOT NULL,
+	"EquipoId" INTEGER NOT NULL,
 	"jugadorId"	INTEGER,
 	PRIMARY KEY("jugadorId" AUTOINCREMENT),
 	FOREIGN KEY("EquipoId") REFERENCES "Equipos"("EquipoId")
 );
 
+--------------------------------------------------------------------------------------
+
 CREATE TABLE "Torneos" (
-	"Deporte"	VARACHAR(25) NOT NULL,
-	"EquipoId"	INTEGER NOT NULL,
+	"Deporte" VARACHAR(25) NOT NULL,
+	"Equipo" VARACHAR(25) NOT NULL,
+	"Puesto" INTEGER NOT NULL,
+	"Puntaje" INTEGER NOT NULL,
 	"TorneoId"	INTEGER,
 	PRIMARY KEY("TorneoId" AUTOINCREMENT),
-	FOREIGN KEY("EquipoId") REFERENCES "Equipos"("EquipoId")
 );
 
-CREATE TABLE "Tablas" (
-	"Puntaje"	INTEGER NOT NULL,
-	"EquipoId"	INTEGER NOT NULL,
-	"TorneoId"	INTEGER NOT null,
-    "TablaId" INTEGER,
-	PRIMARY KEY("TablaId" AUTOINCREMENT),
+CREATE TABLE "Partidos" (
+	"Fecha" VARACHAR(25) NOT NULL,
+	"Hora" VARACHAR(25) NOT NULL,
+	"EquipoA" VARACHAR(25) NOT NULL,
+	"EquipoB" VARACHAR(25) NOT NULL,
+	"Ganador" VARACHAR(25),
+	"PartidoId" INTEGER,
+	PRIMARY KEY("PartidoId" AUTOINCREMENT),
+);
+
+--------------------------------------------------------------------------------------
+
+CREATE TABLE "TablasTorneos" (
+	"PuntajeTorneo" INTEGER NOT NULL,
+	"EquipoId" INTEGER NOT NULL,
+	"TorneoId" INTEGER NOT NULL,
+    "TablasTorneoId" INTEGER,
+	PRIMARY KEY("TablasTorneoId" AUTOINCREMENT),
 	FOREIGN KEY("EquipoId") REFERENCES "Equipos"("EquipoId"),
 	FOREIGN KEY("TorneoId") REFERENCES "Torneos"("TorneoId")
 );
+
+CREATE TABLE "TablasPartidos" (
+	"PuntajePartido" INTEGER NOT NULL,
+	"EquipoId" INTEGER NOT NULL,
+	"PartidosId" INTEGER NOT NULL,
+    "TablasPartidoId" INTEGER,
+	PRIMARY KEY("TablasPartidoId" AUTOINCREMENT),
+	FOREIGN KEY("EquipoId") REFERENCES "Equipos"("EquipoId"),
+	FOREIGN KEY("PartidoId") REFERENCES "Partidos"("PartidoId")
+);
+
+--------------------------------------------------------------------------------------
+
+CREATE TABLE "TablaPuntajeTotal" (
+	"PuntajeTorneoId" INTEGER NOT NULL,
+	"PuntajePartidoId" INTEGER NOT NULL,
+    "TablaPuntajeTotalId" INTEGER,
+	PRIMARY KEY("TablaPuntajeTotalId" AUTOINCREMENT),
+	FOREIGN KEY("PuntajeTorneoId") REFERENCES "TablasTorneos"("PuntajeTorneoId"),
+	FOREIGN KEY("PuntajePartidoId") REFERENCES "TablasPartidos"("PuntajePartidoId"),
+);
+
+--------------------------------------------------------------------------------------
 
 --6 Equipos
 --12 Jugadores
