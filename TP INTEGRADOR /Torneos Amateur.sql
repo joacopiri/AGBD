@@ -12,7 +12,7 @@ CREATE TABLE "Jugadores" (
 	"Nombre"	VARACHAR(25) NOT NULL,
 	"Apellido"	VARACHAR(25) NOT NULL,
 	"EquipoId" INTEGER NOT NULL,
-	"jugadorId"	INTEGER,
+	"JugadorId"	INTEGER,
 	PRIMARY KEY("jugadorId" AUTOINCREMENT),
 	FOREIGN KEY("EquipoId") REFERENCES "Equipos"("EquipoId")
 );
@@ -21,9 +21,9 @@ CREATE TABLE "Jugadores" (
 
 CREATE TABLE "Torneos" (
 	"Deporte" VARACHAR(25) NOT NULL,
-	"Puesto" INTEGER NOT NULL,
-	"EquipoId" INTEGER NOT NULL,
-	"TablasTorneosId" INTEGER NOT NULL,
+	"Terminado?" INTEGER NOT NULL,
+	"EquipoId" INTEGER,
+	"TablasTorneosId" INTEGER,
 	"TorneoId"	INTEGER,
 	PRIMARY KEY("TorneoId" AUTOINCREMENT),
 	FOREIGN KEY("EquipoId") REFERENCES "Equipos"("EquipoId"),
@@ -33,12 +33,16 @@ CREATE TABLE "Torneos" (
 CREATE TABLE "Partidos" (
 	"Fecha" VARACHAR(25) NOT NULL,
 	"Hora" VARACHAR(25) NOT NULL,
+	"Lugar" VARACHAR (50) NOT NULL,
 	"EquipoA" VARACHAR(25) NOT NULL,
 	"EquipoB" VARACHAR(25) NOT NULL,
-	"Ganador" VARACHAR(25),
+	"Resultado" VARACHAR(25) NOT NULL,
+	"Suspendido?" VARACHAR(25) NOT NULL,
 	"PartidoId" INTEGER,
 	PRIMARY KEY("PartidoId" AUTOINCREMENT),
 );
+
+--CURRENT_TIMESTAMP
 
 --------------------------------------------------------------------------------------
 
