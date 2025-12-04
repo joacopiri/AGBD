@@ -6,27 +6,28 @@ CREATE TABLE `Empleados` (
     PRIMARY KEY (`empleadoID`)
 )
 
+INSERT `Empleados` (`nombre`,`area`,`pago`)
+VALUES (`tomi`,`barista`,`20`)
+
+UPDATE `Empleados`
+SET `pago` = `17`
+WHERE `nombre` = `tomi`;
+
+DELETE FROM `Empleados` WHERE `nombre` = `tomi`
+
 CREATE TABLE `Clientes` (
     `nombre` VARCHAR(25) NOT NULL,
-    `productoID` INT NOT NULL,
+    `pedidoID` INT NOT NULL,
     `clienteID` INT AUTO_INCREMENT,
-    PRIMARY KEY (`clienteID`),
-    FOREIGN KEY (`productoID`) REFERENCES `Productos`(`productoID`)
-)
-
-CREATE TABLE `Productos` (
-    `nombre` VARCHAR(25) NOT NULL,
-    `categoria` VARCHAR(25) NOT NULL,
-    `precio` VARCHAR(25) NOT NULL,
-    `productoID` INT AUTO_INCREMENT,
-    PRIMARY KEY (`productoID`)
+    PRIMARY KEY (`clienteID`)
+    FOREIGN KEY (`pedidoID`) REFERENCES `Pedidos`(`pedidoID`)
 )
 
 CREATE TABLE `Pedidos` (
-    `clienteID` INT NOT NULL,
+    `productoID` INT NOT NULL,
     `pedidoID` INT AUTO_INCREMENT,
     PRIMARY KEY (`pedidoID`),
-    FOREIGN KEY (`clienteID`) REFERENCES `Clientes`(`clienteID`)
+    FOREIGN KEY (`productoID`) REFERENCES `Productos`(`productoID`)
 )
 
 CREATE TABLE `DetallesPedidos` (
@@ -38,6 +39,14 @@ CREATE TABLE `DetallesPedidos` (
     FOREIGN KEY (`pedidoID`) REFERENCES `Pedidos`(`pedidoID`)
 )
 
+CREATE TABLE `Productos` (
+    `nombre` VARCHAR(25) NOT NULL,
+    `categoria` VARCHAR(25) NOT NULL,
+    `precio` VARCHAR(25) NOT NULL,
+    `productoID` INT AUTO_INCREMENT,
+    PRIMARY KEY (`productoID`)
+)
+
 CREATE TABLE `Proveedores` (
     `empresa` VARCHAR(25) NOT NULL,
     `productoID` INT NOT NULL,
@@ -46,9 +55,12 @@ CREATE TABLE `Proveedores` (
     FOREIGN KEY (`productoID`) REFERENCES `Productos`(`productoID`)
 )
 
-CREATE TABLE `ComprasProveedores` (
-    
-    
+/*CREATE TABLE `Compras` (
+    `productoID` INT NOT NULL,
+    `proveedorID` INT NOT NULL,
     `compraID` INT AUTO_INCREMENT,
     PRIMARY KEY (`compraID`),
-)
+    FOREIGN KEY (`proveedorID`) REFERENCES `Proveedores`(`proveedorID`),
+    FOREIGN KEY (`productoID`) REFERENCES `Productos`(`productoID`)
+)*/
+
